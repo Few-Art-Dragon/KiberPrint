@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
@@ -8,9 +7,11 @@ public class GameUI : MonoBehaviour
     [SerializeField] private UISlideAnimation _letterText;
     [SerializeField] private GameObject _resultPanel;
     [SerializeField] private GameObject _resultText;
+    [SerializeField] private Button _startGameButton;
 
     private void SetMainMenuVisibility(bool show)
     {
+        _startGameButton.interactable = show;
         foreach (var item in _mainMenu)
         {
             item.SetSlide(show);

@@ -1836,6 +1836,7 @@ MonoBehaviour:
   _letterText: {fileID: 845380773}
   _resultPanel: {fileID: 1784050120}
   _resultText: {fileID: 845380768}
+  _startGameButton: {fileID: 1601731651}
 --- !u!1 &1110375442
 GameObject:
   m_ObjectHideFlags: 0
