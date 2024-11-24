@@ -1,0 +1,56 @@
+{
+    "name": "MainMenu",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "04ed1df7-32af-4061-bb72-4473c9026295",
+            "actions": [
+                {
+                    "name": "Trigger911",
+                    "type": "Button",
+                    "id": "c5fb77f9-74cd-4761-80d9-ee510896c4fb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0b146053-9fc8-46c5-983c-c8e4bd8a38a3",
+                    "path": "<Keyboard>/9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger911",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c4235ef5-af0c-4cdf-bee8-dffd9bd27759",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger911",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "239b54a5-86e4-4dd0-9acb-acfb7c732f65",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger911",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

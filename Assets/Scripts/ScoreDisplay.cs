@@ -17,5 +17,10 @@ public class ScoreDisplay : MonoBehaviour
         _text.text = "0";
     }
 
+    public void ResetText(string value)
+    {
+        _text.text = value;
+    }
+
     public void UpdateScore(ushort score) => _text.text = score.ToString();
 }

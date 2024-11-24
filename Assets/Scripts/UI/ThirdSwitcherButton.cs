@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ThirdSwitcherButton : MonoBehaviour
@@ -6,13 +7,20 @@ public class ThirdSwitcherButton : MonoBehaviour
     [SerializeField] private Image _buttonImage;
     [SerializeField] private Sprite _sprite1;
     [SerializeField] private Sprite _sprite2;
-    [SerializeField] private Sprite _sprite3;
+    [SerializeField] private Sprite _sprite3; 
+    [SerializeField] private Sprite _secretModeButton;
+    private DifficultySettings _difficultySettings;
 
     private int _currentState = 0;
 
+    public void Initialize(DifficultySettings difficultySettings)
+    {
+        _difficultySettings = difficultySettings;
+    }
+
     public void OnSwitcherClick()
     {
-        _currentState = (_currentState + 1) % 3;
+        _currentState = ((int)_difficultySettings.difficultyLevel);
 
         switch (_currentState)
         {
@@ -25,6 +33,14 @@ public class ThirdSwitcherButton : MonoBehaviour
             case 2:
                 _buttonImage.sprite = _sprite3;
                 break;
+            case 3:
+                _buttonImage.sprite = _secretModeButton;
+                break;
         }
+    }
+
+    public void SetSecretButton()
+    {
+        _buttonImage.sprite = _secretModeButton;
     }
 }

@@ -4,7 +4,6 @@ public class LetterGenerator : MonoBehaviour
 {
     private const string ENG_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private const string RUS_ALPHABET = "ÀÁÂÃÄÅ¨ÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞß";
-
     private GameParameters _gameParameters;
 
     public delegate void LetterGeneratedHandler();
@@ -23,17 +22,15 @@ public class LetterGenerator : MonoBehaviour
 
     public void GenerateNewLetter()
     {
+        char newLetter;
+        do
+        {
+            newLetter = GetRandomLetter(_gameParameters.isEnglishAlphabet ? ENG_ALPHABET : RUS_ALPHABET);
+        } while (newLetter == _prevLetter);
 
-        currentLetter = GetRandomLetter(_gameParameters.isEnglishAlphabet ? ENG_ALPHABET : RUS_ALPHABET);
-        if (currentLetter == _prevLetter)
-        {
-            GenerateNewLetter();
-        }
-        else
-        {
-            _prevLetter = currentLetter;
-            OnLetterGenerated?.Invoke();
-        }
+        currentLetter = newLetter;
+        _prevLetter = currentLetter;
+        OnLetterGenerated?.Invoke();
     }
 
     private char GetRandomLetter(string alphabet)

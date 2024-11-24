@@ -39,7 +39,7 @@ public class KeyboardInputHandler : MonoBehaviour
             OnKeyPressed?.Invoke();
             if (!_gameParameters.isTrainingMode)
             {
-                _gameTimer.StartLetterTimer(_difficultySettings.GetLetterChangeTime(), _letterGenerator.GenerateNewLetter);
+                _gameTimer.StartLetterTimer(_difficultySettings.GetLetterChangeTime(), _letterGenerator.GenerateNewLetter, false);
             }
         }
         else

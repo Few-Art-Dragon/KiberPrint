@@ -1,75 +1,66 @@
-using DG.Tweening.Core.Easing;
-using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameTimer : MonoBehaviour
 {
-    private const float MIN_TIME_SEC = 60;
-    private const float MAX_TIME_SEC = 540;
+    private const float MINIMUM_MATCH_TIME = 60f;
+    private const float MAXIMUM_MATCH_TIME = 540f;
+    private const float DEFAULT_MATCH_TIME = 120f;
 
-    public float MatchTimeInSeconds { get; private set; }
+    public float MatchTimeInSeconds { get; private set; } = DEFAULT_MATCH_TIME;
 
-    private Coroutine _ñoroutine;
+    private Coroutine _letterTimerCoroutine;
+    private Coroutine _matchTimerCoroutine;
 
-    public void Initialize()
-    {
-        MatchTimeInSeconds = 120f;
-    }
-  
     public void StartMatchTimer(float duration, System.Action onEnd)
     {
-        StartCoroutine(TimerCoroutine(duration, onEnd));
+        RestartCoroutine(ref _matchTimerCoroutine, duration, onEnd);
     }
 
-    public void StartLetterTimer(float duration, System.Action onEnd)
+    public void StartLetterTimer(float duration, System.Action onEnd, bool isGameOver)
     {
-        if (_ñoroutine != null)
+        if (!isGameOver)
         {
-            StopCoroutine(_ñoroutine);
+            RestartCoroutine(ref _letterTimerCoroutine, duration, onEnd);
         }
-        _ñoroutine = StartCoroutine(TimerCoroutine(duration, onEnd));
     }
 
     public void StopAllTimers()
     {
         StopAllCoroutines();
+        _letterTimerCoroutine = null;
+        _matchTimerCoroutine = null;
     }
 
-    public void AddTime()
+    public void AdjustMatchTime(float adjustmentInSeconds)
     {
-        if (MatchTimeInSeconds < MAX_TIME_SEC)
-        {
-            MatchTimeInSeconds += MIN_TIME_SEC;  
-        }    
-    }
-
-    public void SubtractTime()
-    {
-        if (MatchTimeInSeconds > MIN_TIME_SEC)
-        {
-            MatchTimeInSeconds -= MIN_TIME_SEC; 
-        }
+        MatchTimeInSeconds = Mathf.Clamp(MatchTimeInSeconds + adjustmentInSeconds, MINIMUM_MATCH_TIME, MAXIMUM_MATCH_TIME);
     }
 
     public void UpdateMatchTime(string input)
     {
-        if (input != null && float.TryParse(input, out float minutes) && minutes >= 1 && minutes <= 9f)
+        if (float.TryParse(input, out float minutes) && minutes >= 1f && minutes <= 9f)
         {
             MatchTimeInSeconds = minutes * 60f;
         }
         else
         {
-            MatchTimeInSeconds = 120f; 
+            MatchTimeInSeconds = DEFAULT_MATCH_TIME;
         }
+    }
+
+    private void RestartCoroutine(ref Coroutine coroutine, float duration, System.Action onEnd)
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        coroutine = StartCoroutine(TimerCoroutine(duration, onEnd));
     }
 
     private IEnumerator TimerCoroutine(float duration, System.Action onEnd)
     {
         yield return new WaitForSeconds(duration);
-        onEnd.Invoke();
+        onEnd?.Invoke();
     }
-
 }
